@@ -1,0 +1,39 @@
+-- Create the Invisibility Cloak
+local invisibilityCloak = Instance.new("Part")
+invisibilityCloak.Name = "InvisibilityCloak"
+invisibilityCloak.Size = Vector3.new(5, 1, 5)
+invisibilityCloak.BrickColor = BrickColor.new("Black")
+invisibilityCloak.Anchored = true
+invisibilityCloak.Parent = game.Workspace
+
+-- Function to make the player invisible
+local function makeInvisible(player)
+    local humanoid = player:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.Torso.Transparency = 1 -- Make the torso transparent
+        humanoid.Head.Transparency = 1 -- Make the head transparent
+        humanoid.LeftLeg.Transparency = 1 -- Make the left leg transparent
+        humanoid.RightLeg.Transparency = 1 -- Make the right leg transparent
+        -- You can adjust the transparency of other parts as needed
+    end
+end
+
+-- Function to make the player visible again
+local function makeVisible(player)
+    local humanoid = player:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.Torso.Transparency = 0 -- Restore torso transparency
+        humanoid.Head.Transparency = 0 -- Restore head transparency
+        humanoid.LeftLeg.Transparency = 0 -- Restore left leg transparency
+        humanoid.RightLeg.Transparency = 0 -- Restore right leg transparency
+        -- Restore transparency of other parts as needed
+    end
+end
+
+-- Detect when a player touches the Invisibility Cloak
+invisibilityCloak.Touched:Connect(function(other)
+    local player = other.Parent
+    if player:IsA("Model") and player:FindFirstChildOfClass("Humanoid") then
+        makeInvisible(player)
+    end
+end)
